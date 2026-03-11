@@ -17,9 +17,9 @@ public class FrmBingo extends JFrame {
         setLayout(null);
         String [] encabezados = {"B", "I", "N", "G", "O"};
 
-        String [][] resultado = new String[5][5];
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
+        String [][] resultado = new String[5][6];
+        for (int i = 0; i < 56; i++) {
+            for (int j = 0; j < 6; j++) {
                 resultado[i][j] = "Valor " + i + "," + j;
             }
         }
