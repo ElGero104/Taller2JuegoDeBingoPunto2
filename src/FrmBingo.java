@@ -10,25 +10,24 @@ import javax.swing.JLabel;
 
 
 public class FrmBingo extends JFrame {
+    private Tabla tabla;
+    private DefaultTableModel [] modelTabla;
+    private JTable tblTabla;
+    private JComboBox cmbTablas;
+
     public FrmBingo() {
         setTitle("Juego de Bingo");
         setSize(800, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         String [] encabezados = {"B", "I", "N", "G", "O"};
-
-        String [][] resultado = new String[5][6];
-        for (int i = 0; i < 56; i++) {
-            for (int j = 0; j < 6; j++) {
-                resultado[i][j] = "Valor " + i + "," + j;
-            }
-        }
+        String [] jugadores = {"Jugador 1", "Jugador 2", "Jugador 3", "Jugador 4", "Jugador 5"};
         
         JTable tblBingo = new JTable();
         JScrollPane scrollPane = new JScrollPane(tblBingo);
         scrollPane.setBounds(50, 50, 200, 350);
         add(scrollPane);
-        DefaultTableModel model = new DefaultTableModel(resultado, encabezados);
+        DefaultTableModel model = new DefaultTableModel(encabezados, 0);
         tblBingo.setModel(model);
 
         JButton btnIniciar = new JButton("Iniciar");
@@ -53,20 +52,32 @@ public class FrmBingo extends JFrame {
         add(jLabel2);
 
         
-        JComboBox cmbTablas=new JComboBox();
+        cmbTablas=new JComboBox();
         cmbTablas.setBounds(scrollPane.getWidth()+jLabel2.getWidth(), 175, 325, 30);
         add(cmbTablas);
-        for (String letra : encabezados) {
-            cmbTablas.addItem(letra);
+        for (String jugador : jugadores) {
+            cmbTablas.addItem(jugador);
         }
         
-        
 
-        JTable tblTabla = new JTable();
+        tblTabla = new JTable();
         JScrollPane scrollPaneTabla = new JScrollPane(tblTabla);
-        scrollPaneTabla.setBounds(100+scrollPane.getWidth(), 225, 370, 175);
+        modelTabla = new DefaultTableModel[jugadores.length];
+        for (int i = 0; i < jugadores.length; i++) {
+            modelTabla[i] = new DefaultTableModel(encabezados, 0);
+            cmbTablas.addItem(jugadores[i]);
+            modelTabla[i].addRow(new Object[]{"J"+(i+1), "I"+(i+1), "N"+(i+1), "G"+(i+1), "O"+(i+1)});
+        }
+        tblTabla.setModel(modelTabla[0]);
+        scrollPaneTabla.setBounds(100+scrollPane.getWidth(), 225, 400, 100);
         add(scrollPaneTabla);
-        tblTabla.setModel(model);
+
+        cmbTablas.addActionListener(e -> {
+            tabla.mostrar(cmbTablas.getSelectedIndex(), tblTabla, modelTabla);    
+        });
+
+        
+         
     }
     
 }
