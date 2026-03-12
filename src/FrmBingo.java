@@ -55,9 +55,6 @@ public class FrmBingo extends JFrame {
         cmbTablas=new JComboBox();
         cmbTablas.setBounds(scrollPane.getWidth()+jLabel2.getWidth(), 175, 325, 30);
         add(cmbTablas);
-        for (String jugador : jugadores) {
-            cmbTablas.addItem(jugador);
-        }
         
 
         tblTabla = new JTable();
